@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Sign in — Auralis Demo</title>
+  <link rel="icon" href="/assets/favicon.svg" type="image/svg+xml" />
+  <link rel="stylesheet" href="/css/app.css" />
+</head>
+<body>
+  <div class="demo-banner"><strong>DEMO ONLY</strong> — simulated data, no real trading.</div>
+
+  <header class="site-header">
+    <div class="container nav">
+      <a class="brand" href="/"><span class="mark">A</span> Auralis <span class="tag">Demo</span></a>
+      <div class="nav-actions">
+        <a class="btn btn-ghost" href="/signup">Create account</a>
+      </div>
+    </div>
+  </header>
+
+  <main class="auth-wrap">
+    <div class="auth-card">
+      <h2>Welcome back</h2>
+      <p class="muted" style="font-size:15px">Sign in to your demo dashboard.</p>
+
+      <div class="alert error" id="alert"></div>
+
+      <form id="login-form" novalidate>
+        <div class="field">
+          <label for="email">Email or username</label>
+          <input id="email" name="email" autocomplete="username" placeholder="you@example.com" />
+        </div>
+        <div class="field">
+          <label for="password">Password</label>
+          <input id="password" name="password" type="password" autocomplete="current-password" placeholder="••••••••" />
+        </div>
+        <button class="btn btn-primary btn-block" type="submit" id="submit">Sign in</button>
+      </form>
+
+      <p class="muted" style="font-size:14px;margin-top:18px;text-align:center">
+        No account? <a href="/signup" style="color:var(--cyan)">Create one</a>
+      </p>
+      <p class="muted" style="font-size:12.5px;margin-top:14px;text-align:center">
+        Demo credentials are whatever you registered. Nothing is verified.
+      </p>
+    </div>
+  </main>
+
+  <script src="/js/app.js"></script>
+  <script>
+    const form = document.getElementById('login-form');
+    const alertBox = document.getElementById('alert');
+    const submit = document.getElementById('submit');
+
+    form.addEventListener('submit', async (e) => {
+      e.preventDefault();
+      alertBox.classList.remove('show');
+      submit.disabled = true;
+      submit.textContent = 'Signing in…';
+
+      const { ok, data } = await api.post('/api/auth/login', {
+        email: form.email.value.trim(),
+        password: form.password.value,
+      });
+
+      submit.disabled = false;
+      submit.textContent = 'Sign in';
+
+      if (!ok) {
+        alertBox.textContent = data.error || 'Could not sign in.';
+        alertBox.classList.add('show');
+        return;
+      }
+      window.location.href = '/dashboard';
+    });
+  </script>
+</body>
+</html>

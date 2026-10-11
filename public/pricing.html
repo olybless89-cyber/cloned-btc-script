@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Pricing — Auralis Demo</title>
+  <link rel="icon" href="/assets/favicon.svg" type="image/svg+xml" />
+  <link rel="stylesheet" href="/css/app.css" />
+</head>
+<body>
+  <div class="demo-banner"><strong>DEMO ONLY</strong> — every tier below is free and virtual.</div>
+
+  <header class="site-header">
+    <div class="container nav">
+      <a class="brand" href="/"><span class="mark">A</span> Auralis <span class="tag">Demo</span></a>
+      <nav class="nav-links">
+        <a href="/">Home</a>
+        <a href="/pricing" class="active">Pricing</a>
+        <a href="/about">About</a>
+        <a href="/faq">FAQ</a>
+        <a href="/contact">Contact</a>
+      </nav>
+      <div class="nav-actions">
+        <a class="btn btn-ghost" href="/login">Sign in</a>
+        <a class="btn btn-primary" href="/signup">Create account</a>
+      </div>
+    </div>
+  </header>
+
+  <main>
+    <section>
+      <div class="container">
+        <div class="section-head center">
+          <div class="eyebrow">Pricing</div>
+          <h2>Free, and it stays free</h2>
+          <p class="muted">
+            These tiers exist to show a pricing layout. They do not charge anything and they
+            are not investment plans — there is no return, no deposit and no payout anywhere
+            in this app.
+          </p>
+        </div>
+
+        <div class="grid grid-3">
+          <div class="card price-card">
+            <h3>Sandbox</h3>
+            <div class="amount">$0</div>
+            <div class="muted" style="font-size:14px">Practice account</div>
+            <ul>
+              <li>$10,000 virtual cash</li>
+              <li>Simulated market browser</li>
+              <li>Virtual buy / sell orders</li>
+              <li>Reset any time</li>
+            </ul>
+            <a class="btn btn-ghost btn-block" href="/signup">Create account</a>
+          </div>
+
+          <div class="card price-card featured">
+            <h3>Sandbox Plus</h3>
+            <div class="amount">$0</div>
+            <div class="muted" style="font-size:14px">Everything in Sandbox, plus</div>
+            <ul>
+              <li>Extra assets on the watchlist</li>
+              <li>Longer sparkline history</li>
+              <li>Position P&amp;L breakdown</li>
+              <li>Nothing else — it's a demo</li>
+            </ul>
+            <a class="btn btn-primary btn-block" href="/signup">Create account</a>
+          </div>
+
+          <div class="card price-card">
+            <h3>Self-host</h3>
+            <div class="amount">$0</div>
+            <div class="muted" style="font-size:14px">Run it yourself</div>
+            <ul>
+              <li>Full source in the repository</li>
+              <li>Node.js + Express backend</li>
+              <li>No external services required</li>
+              <li>Local JSON storage</li>
+            </ul>
+            <a class="btn btn-ghost btn-block" href="/about">Read more</a>
+          </div>
+        </div>
+
+        <div class="card" style="margin-top:26px">
+          <h3>What you will not find here</h3>
+          <p class="muted">
+            No managed "investment plans", no promised percentage returns, no referral
+            commissions and no deposit flow. If a site offers those things alongside a
+            crypto theme, that combination is a well-known fraud pattern and worth treating
+            with suspicion.
+          </p>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="site-footer">
+    <div class="container footer-note" style="margin-top:0;border-top:none">
+      <span>© <span id="year"></span> Auralis demo. Not a financial service.</span>
+      <span>Simulated data only.</span>
+    </div>
+  </footer>
+  <script src="/js/app.js"></script>
+  <script>document.getElementById('year').textContent = new Date().getFullYear();</script>
+</body>
+</html>
