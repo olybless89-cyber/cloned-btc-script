@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>FAQ — Auralis Demo</title>
+  <link rel="icon" href="/assets/favicon.svg" type="image/svg+xml" />
+  <link rel="stylesheet" href="/css/app.css" />
+</head>
+<body>
+  <div class="demo-banner"><strong>DEMO ONLY</strong> — simulated data, no real trading.</div>
+
+  <header class="site-header">
+    <div class="container nav">
+      <a class="brand" href="/"><span class="mark">A</span> Auralis <span class="tag">Demo</span></a>
+      <nav class="nav-links">
+        <a href="/">Home</a>
+        <a href="/pricing">Pricing</a>
+        <a href="/about">About</a>
+        <a href="/faq" class="active">FAQ</a>
+        <a href="/contact">Contact</a>
+      </nav>
+      <div class="nav-actions">
+        <a class="btn btn-ghost" href="/login">Sign in</a>
+        <a class="btn btn-primary" href="/signup">Create account</a>
+      </div>
+    </div>
+  </header>
+
+  <main>
+    <section>
+      <div class="container" style="max-width:820px">
+        <div class="section-head">
+          <div class="eyebrow">FAQ</div>
+          <h2>Questions</h2>
+        </div>
+
+        <details class="faq-item" open>
+          <summary>Can I deposit or withdraw money?</summary>
+          <div class="body">No. There is no deposit flow, no wallet connection and no payout.
+            The only balance in the app is a virtual $10,000 that you can reset at any time.</div>
+        </details>
+
+        <details class="faq-item">
+          <summary>Are the prices real?</summary>
+          <div class="body">No. Prices are generated locally with a random walk so the
+            dashboard has something to animate. They are not connected to any exchange or data
+            provider and should never be used for decisions about real assets.</div>
+        </details>
+
+        <details class="faq-item">
+          <summary>Do you offer investment plans with returns?</summary>
+          <div class="body">No, and that is deliberate. Promising a fixed percentage return over
+            a short period is the defining feature of a Ponzi or HYIP scheme. This demo does not
+            model that, and the pricing page is a layout example only.</div>
+        </details>
+
+        <details class="faq-item" id="disclaimer">
+          <summary>Disclaimer</summary>
+          <div class="body">This application is a non-functional demonstration. It provides no
+            financial advice and no financial service. Nothing in it constitutes an offer or
+            solicitation to buy or sell any asset. All market data is simulated. Use it for
+            learning and interface practice only.</div>
+        </details>
+
+        <details class="faq-item" id="privacy">
+          <summary>What happens to my data?</summary>
+          <div class="body">Accounts you create are stored in a local <span class="mono">data/store.json</span>
+            file on the machine running the server. Passwords are hashed with scrypt. If you are
+            using a hosted copy of this demo, treat any account you create as disposable and do
+            not use a password you rely on elsewhere.</div>
+        </details>
+
+        <details class="faq-item">
+          <summary>Can I run it myself?</summary>
+          <div class="body">Yes. Install dependencies and start the server — see the README in
+            the repository. It needs only Node.js 18+ and Express.</div>
+        </details>
+      </div>
+    </section>
+  </main>
+
+  <footer class="site-footer">
+    <div class="container footer-note" style="margin-top:0;border-top:none">
+      <span>© <span id="year"></span> Auralis demo. Not a financial service.</span>
+      <span>Simulated data only.</span>
+    </div>
+  </footer>
+  <script src="/js/app.js"></script>
+  <script>document.getElementById('year').textContent = new Date().getFullYear();</script>
+</body>
+</html>

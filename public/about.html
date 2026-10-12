@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>About — Auralis Demo</title>
+  <link rel="icon" href="/assets/favicon.svg" type="image/svg+xml" />
+  <link rel="stylesheet" href="/css/app.css" />
+</head>
+<body>
+  <div class="demo-banner"><strong>DEMO ONLY</strong> — a sample app, not a company or a service.</div>
+
+  <header class="site-header">
+    <div class="container nav">
+      <a class="brand" href="/"><span class="mark">A</span> Auralis <span class="tag">Demo</span></a>
+      <nav class="nav-links">
+        <a href="/">Home</a>
+        <a href="/pricing">Pricing</a>
+        <a href="/about" class="active">About</a>
+        <a href="/faq">FAQ</a>
+        <a href="/contact">Contact</a>
+      </nav>
+      <div class="nav-actions">
+        <a class="btn btn-ghost" href="/login">Sign in</a>
+        <a class="btn btn-primary" href="/signup">Create account</a>
+      </div>
+    </div>
+  </header>
+
+  <main>
+    <section>
+      <div class="container">
+        <div class="section-head">
+          <div class="eyebrow">About</div>
+          <h2>A demo built to be looked at, not invested in</h2>
+          <p class="muted">
+            Auralis is a small full-stack sample: a landing site, real authentication and a
+            dashboard backed by an Express API. It exists so the interface and the code can be
+            studied, forked and modified. It is not affiliated with any real exchange or
+            financial institution.
+          </p>
+        </div>
+
+        <div class="grid grid-2">
+          <div class="card">
+            <h3>What's real</h3>
+            <p>
+              The authentication flow, the session handling and the API are genuinely
+              implemented. Passwords are hashed with scrypt and never stored in plain text.
+              Data lives in a local JSON file.
+            </p>
+          </div>
+          <div class="card">
+            <h3>What's simulated</h3>
+            <p>
+              Every price, percentage change and volume figure is generated locally with a
+              random walk. There is no exchange connection, no order book and no money of any
+              kind moving through the system.
+            </p>
+          </div>
+          <div class="card">
+            <h3>Why it's built this way</h3>
+            <p>
+              Crypto-themed sites are frequently used to dress up investment fraud. This demo
+              deliberately omits the elements that make those sites dangerous: promised
+              returns, deposit flows, referral pyramids and fabricated "live investor"
+              activity.
+            </p>
+          </div>
+          <div class="card">
+            <h3>Stack</h3>
+            <p>
+              Node.js with Express for the API and static hosting, vanilla HTML/CSS/JavaScript
+              on the front end, and a JSON file for storage. No build step and no external
+              dependencies beyond Express.
+            </p>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="site-footer">
+    <div class="container footer-note" style="margin-top:0;border-top:none">
+      <span>© <span id="year"></span> Auralis demo. Not a financial service.</span>
+      <span>Simulated data only.</span>
+    </div>
+  </footer>
+  <script src="/js/app.js"></script>
+  <script>document.getElementById('year').textContent = new Date().getFullYear();</script>
+</body>
+</html>

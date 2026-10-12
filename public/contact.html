@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Contact — Auralis Demo</title>
+  <link rel="icon" href="/assets/favicon.svg" type="image/svg+xml" />
+  <link rel="stylesheet" href="/css/app.css" />
+</head>
+<body>
+  <div class="demo-banner"><strong>DEMO ONLY</strong> — this form does not send anywhere.</div>
+
+  <header class="site-header">
+    <div class="container nav">
+      <a class="brand" href="/"><span class="mark">A</span> Auralis <span class="tag">Demo</span></a>
+      <nav class="nav-links">
+        <a href="/">Home</a>
+        <a href="/pricing">Pricing</a>
+        <a href="/about">About</a>
+        <a href="/faq">FAQ</a>
+        <a href="/contact" class="active">Contact</a>
+      </nav>
+      <div class="nav-actions">
+        <a class="btn btn-ghost" href="/login">Sign in</a>
+        <a class="btn btn-primary" href="/signup">Create account</a>
+      </div>
+    </div>
+  </header>
+
+  <main>
+    <section>
+      <div class="container" style="max-width:820px">
+        <div class="section-head">
+          <div class="eyebrow">Contact</div>
+          <h2>Get in touch</h2>
+          <p class="muted">
+            This is a demo, so the form below is intentionally inert — it shows the layout but
+            does not transmit anything.
+          </p>
+        </div>
+
+        <div class="grid grid-2">
+          <div class="card">
+            <div class="alert ok show" style="margin-bottom:16px">
+              Demo form: submissions are not sent or stored.
+            </div>
+            <form id="contact-form">
+              <div class="field">
+                <label for="name">Name</label>
+                <input id="name" placeholder="Your name" />
+              </div>
+              <div class="field">
+                <label for="email">Email</label>
+                <input id="email" type="email" placeholder="you@example.com" />
+              </div>
+              <div class="field">
+                <label for="message">Message</label>
+                <input id="message" placeholder="How can we help?" />
+              </div>
+              <button class="btn btn-primary btn-block" type="submit">Send message</button>
+            </form>
+          </div>
+
+          <div class="card">
+            <h3>Project details</h3>
+            <p class="muted">Repository: <span class="mono">olybless89-cyber/cloned-btc-script</span></p>
+            <p class="muted">Stack: Node.js, Express, vanilla HTML/CSS/JS.</p>
+            <p class="muted">Storage: local JSON file, no external database.</p>
+            <p class="muted" style="margin-bottom:0">
+              For anything urgent: this is a demonstration app and has no support channel.
+            </p>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="site-footer">
+    <div class="container footer-note" style="margin-top:0;border-top:none">
+      <span>© <span id="year"></span> Auralis demo. Not a financial service.</span>
+      <span>Simulated data only.</span>
+    </div>
+  </footer>
+  <script src="/js/app.js"></script>
+  <script>
+    document.getElementById('year').textContent = new Date().getFullYear();
+    document.getElementById('contact-form').addEventListener('submit', (e) => {
+      e.preventDefault();
+      alert('This is a demo form — nothing was sent.');
+    });
+  </script>
+</body>
+</html>

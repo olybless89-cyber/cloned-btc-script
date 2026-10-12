@@ -1,0 +1,209 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Auralis — Crypto Market Demo</title>
+  <meta name="description" content="Auralis is a non-functional demo of a crypto market interface. Simulated data only." />
+  <link rel="icon" href="/assets/favicon.svg" type="image/svg+xml" />
+  <link rel="stylesheet" href="/css/app.css" />
+</head>
+<body>
+  <div class="demo-banner">
+    <strong>DEMO ONLY</strong> — simulated prices, simulated portfolio, no real trading and no real money.
+  </div>
+
+  <header class="site-header">
+    <div class="container nav">
+      <a class="brand" href="/">
+        <span class="mark">A</span>
+        Auralis
+        <span class="tag">Demo</span>
+      </a>
+      <nav class="nav-links">
+        <a href="/" class="active">Home</a>
+        <a href="/pricing">Pricing</a>
+        <a href="/about">About</a>
+        <a href="/faq">FAQ</a>
+        <a href="/contact">Contact</a>
+      </nav>
+      <div class="nav-actions">
+        <a class="btn btn-ghost" href="/login">Sign in</a>
+        <a class="btn btn-primary" href="/signup">Create account</a>
+        <button class="nav-toggle" aria-label="Toggle navigation">☰</button>
+      </div>
+    </div>
+  </header>
+
+  <main>
+    <section class="hero">
+      <div class="container hero-grid">
+        <div>
+          <span class="pill"><span class="dot"></span> Simulated market environment</span>
+          <h1>Explore crypto markets in a <span class="grad">risk-free sandbox</span></h1>
+          <p class="lead">
+            Auralis is a demonstration app for practising portfolio tracking and market
+            interfaces. You get $10,000 in virtual cash to allocate across a handful of
+            assets whose prices are generated locally. Nothing here touches a real exchange.
+          </p>
+          <div class="hero-cta">
+            <a class="btn btn-primary" href="/signup">Create a demo account</a>
+            <a class="btn btn-ghost" href="/pricing">See what's included</a>
+          </div>
+        </div>
+        <div class="card">
+          <h3>Live (simulated) prices</h3>
+          <p class="muted" style="font-size:14px">Values tick every few seconds from a local random walk.</p>
+          <div class="table-wrap" style="margin-top:16px">
+            <table>
+              <thead>
+                <tr><th>Asset</th><th>Price</th><th>24h</th><th>Trend</th></tr>
+              </thead>
+              <tbody id="hero-markets">
+                <tr><td colspan="4" class="muted">Loading…</td></tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <div class="ticker" aria-hidden="true">
+      <div class="ticker-track" id="ticker"></div>
+    </div>
+
+    <section>
+      <div class="container">
+        <div class="section-head center">
+          <div class="eyebrow">What this is</div>
+          <h2>An honest demo, not a product pitch</h2>
+          <p class="muted">
+            There are no returns to promise and no deposits to make. Auralis exists to
+            demonstrate an interface and a small backend.
+          </p>
+        </div>
+        <div class="grid grid-3">
+          <div class="card">
+            <div class="icon-box">📈</div>
+            <h3>Market browser</h3>
+            <p>Eight assets with locally generated prices, 24h change and a sparkline. Refreshes automatically.</p>
+          </div>
+          <div class="card">
+            <div class="icon-box">🧮</div>
+            <h3>Practice portfolio</h3>
+            <p>Buy and sell against simulated prices with a virtual $10,000 balance. Track value and P&amp;L.</p>
+          </div>
+          <div class="card">
+            <div class="icon-box">🔐</div>
+            <h3>Real auth code</h3>
+            <p>Sign-up and sign-in are real: scrypt-hashed passwords and server-side sessions. Data stays local.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section>
+      <div class="container">
+        <div class="section-head">
+          <div class="eyebrow">How it works</div>
+          <h2>Three steps</h2>
+        </div>
+        <div class="steps">
+          <div class="step">
+            <div class="num">1</div>
+            <h3>Create an account</h3>
+            <p class="muted">Register with any email. No verification, because there is nothing to verify.</p>
+          </div>
+          <div class="step">
+            <div class="num">2</div>
+            <h3>Browse the markets</h3>
+            <p class="muted">Watch the simulated prices move and read the change figures on the dashboard.</p>
+          </div>
+          <div class="step">
+            <div class="num">3</div>
+            <h3>Try a virtual trade</h3>
+            <p class="muted">Allocate your demo balance and see how the position value updates as prices tick.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section>
+      <div class="container">
+        <div class="card center" style="padding:44px">
+          <h2 style="margin-bottom:10px">Try the demo</h2>
+          <p class="muted" style="max-width:520px;margin:0 auto 22px">
+            It takes about ten seconds to set up an account and there is nothing to pay.
+          </p>
+          <a class="btn btn-primary" href="/signup">Create a demo account</a>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="site-footer">
+    <div class="container">
+      <div class="footer-grid">
+        <div>
+          <div class="brand" style="margin-bottom:12px"><span class="mark">A</span> Auralis</div>
+          <p class="muted" style="font-size:14px;max-width:280px">
+            A non-functional demo application for practising market interfaces.
+          </p>
+        </div>
+        <div>
+          <h4>Product</h4>
+          <a href="/pricing">Pricing</a>
+          <a href="/dashboard">Dashboard</a>
+          <a href="/signup">Create account</a>
+        </div>
+        <div>
+          <h4>Company</h4>
+          <a href="/about">About</a>
+          <a href="/contact">Contact</a>
+          <a href="/faq">FAQ</a>
+        </div>
+        <div>
+          <h4>Legal</h4>
+          <a href="/faq#disclaimer">Disclaimer</a>
+          <a href="/faq#privacy">Privacy</a>
+        </div>
+      </div>
+      <div class="footer-note">
+        <span>© <span id="year"></span> Auralis demo. Not a financial service.</span>
+        <span>Simulated data. No real assets, deposits or returns.</span>
+      </div>
+    </div>
+  </footer>
+
+  <script src="/js/app.js"></script>
+  <script>
+    document.getElementById('year').textContent = new Date().getFullYear();
+
+    async function loadMarkets() {
+      const { markets } = await api.get('/api/markets');
+      if (!markets) return;
+
+      const rows = markets.map((m) => {
+        const up = m.change24h >= 0;
+        return `<tr>
+          <td><div class="coin"><span class="badge">${m.symbol}</span><div><div>${m.name}</div>
+            <div class="muted" style="font-size:12px">${m.symbol}/USD</div></div></div></td>
+          <td class="mono">${money(m.price, { dp: m.price < 1 ? 4 : 2 })}</td>
+          <td class="${up ? 'up' : 'down'}">${pct(m.change24h)}</td>
+          <td>${sparkline(m.spark, up)}</td>
+        </tr>`;
+      }).join('');
+      document.getElementById('hero-markets').innerHTML = rows;
+
+      const ticker = markets.map(
+        (m) => `<span class="ticker-item"><b>${m.symbol}</b> ${money(m.price, { dp: m.price < 1 ? 4 : 2 })}
+          <span class="${m.change24h >= 0 ? 'up' : 'down'}">${pct(m.change24h)}</span></span>`
+      ).join('');
+      document.getElementById('ticker').innerHTML = ticker + ticker;
+    }
+
+    loadMarkets();
+    setInterval(loadMarkets, 4000);
+  </script>
+</body>
+</html>

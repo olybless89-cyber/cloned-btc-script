@@ -1,0 +1,222 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Dashboard — Auralis Demo</title>
+  <link rel="icon" href="/assets/favicon.svg" type="image/svg+xml" />
+  <link rel="stylesheet" href="/css/app.css" />
+</head>
+<body>
+  <div class="demo-banner">
+    <strong>DEMO ONLY</strong> — prices are simulated and your balance is virtual. No real money.
+  </div>
+
+  <header class="site-header">
+    <div class="container nav">
+      <a class="brand" href="/"><span class="mark">A</span> Auralis <span class="tag">Demo</span></a>
+      <nav class="nav-links">
+        <a href="/dashboard" class="active">Dashboard</a>
+        <a href="/pricing">Pricing</a>
+        <a href="/faq">FAQ</a>
+      </nav>
+      <div class="nav-actions">
+        <span class="muted" id="who" style="font-size:14px"></span>
+        <button class="btn btn-ghost" id="logout">Sign out</button>
+      </div>
+    </div>
+  </header>
+
+  <main class="dash">
+    <div class="container">
+      <div class="dash-head">
+        <div>
+          <h1 style="margin-bottom:4px">Your portfolio</h1>
+          <p class="muted" style="margin:0">Simulated holdings valued at simulated prices.</p>
+        </div>
+        <button class="btn btn-ghost" id="reset">Reset demo account</button>
+      </div>
+
+      <div class="stat-grid">
+        <div class="stat"><div class="label">Total value</div><div class="value" id="s-total">—</div></div>
+        <div class="stat"><div class="label">Cash balance</div><div class="value" id="s-cash">—</div></div>
+        <div class="stat"><div class="label">Holdings value</div><div class="value" id="s-hold">—</div></div>
+        <div class="stat"><div class="label">Unrealised P&amp;L</div><div class="value" id="s-pnl">—</div></div>
+      </div>
+
+      <div class="panel">
+        <h3>Place a simulated order</h3>
+        <div class="trade-row">
+          <div class="field" style="margin:0">
+            <label for="t-symbol">Asset</label>
+            <select id="t-symbol"></select>
+          </div>
+          <div class="field" style="margin:0">
+            <label for="t-side">Side</label>
+            <select id="t-side">
+              <option value="buy">Buy</option>
+              <option value="sell">Sell</option>
+            </select>
+          </div>
+          <div class="field" style="margin:0">
+            <label for="t-usd">Amount (USD)</label>
+            <input id="t-usd" type="number" min="1" step="1" value="500" />
+          </div>
+          <button class="btn btn-primary" id="t-submit">Submit order</button>
+        </div>
+        <div class="inline-msg muted" id="t-msg"></div>
+      </div>
+
+      <div class="panel">
+        <h3>Your holdings</h3>
+        <div class="table-wrap">
+          <table>
+            <thead>
+              <tr><th>Asset</th><th>Quantity</th><th>Avg cost</th><th>Price</th><th>Value</th><th>P&amp;L</th></tr>
+            </thead>
+            <tbody id="holdings">
+              <tr><td colspan="6" class="muted">Loading…</td></tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+
+      <div class="panel">
+        <h3>Markets</h3>
+        <div class="table-wrap">
+          <table>
+            <thead>
+              <tr><th>Asset</th><th>Price</th><th>24h</th><th>Volume</th><th>Trend</th></tr>
+            </thead>
+            <tbody id="markets">
+              <tr><td colspan="5" class="muted">Loading…</td></tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+  </main>
+
+  <footer class="site-footer">
+    <div class="container footer-note" style="margin-top:0;border-top:none">
+      <span>© <span id="year"></span> Auralis demo. Not a financial service.</span>
+      <span>Simulated data only.</span>
+    </div>
+  </footer>
+
+  <script src="/js/app.js"></script>
+  <script>
+    document.getElementById('year').textContent = new Date().getFullYear();
+
+    const els = {
+      total: document.getElementById('s-total'),
+      cash: document.getElementById('s-cash'),
+      hold: document.getElementById('s-hold'),
+      pnl: document.getElementById('s-pnl'),
+      holdings: document.getElementById('holdings'),
+      markets: document.getElementById('markets'),
+      who: document.getElementById('who'),
+      symbol: document.getElementById('t-symbol'),
+      side: document.getElementById('t-side'),
+      usd: document.getElementById('t-usd'),
+      msg: document.getElementById('t-msg'),
+    };
+
+    let firstLoad = true;
+
+    function renderPortfolio(p) {
+      els.total.textContent = money(p.totalValue);
+      els.cash.textContent = money(p.cash);
+      els.hold.textContent = money(p.holdingsValue);
+      els.pnl.textContent = money(p.totalPnl);
+      els.pnl.className = 'value ' + (p.totalPnl >= 0 ? 'up' : 'down');
+
+      if (!p.holdings.length) {
+        els.holdings.innerHTML = '<tr><td colspan="6" class="muted">No holdings yet. Place a simulated buy order above.</td></tr>';
+        return;
+      }
+      els.holdings.innerHTML = p.holdings.map((h) => `
+        <tr>
+          <td><div class="coin"><span class="badge">${h.symbol}</span>${h.symbol}</div></td>
+          <td class="mono">${h.qty.toFixed(6)}</td>
+          <td class="mono">${money(h.avgCost, { dp: h.avgCost < 1 ? 4 : 2 })}</td>
+          <td class="mono">${money(h.price, { dp: h.price < 1 ? 4 : 2 })}</td>
+          <td class="mono">${money(h.value)}</td>
+          <td class="${h.pnl >= 0 ? 'up' : 'down'}">${money(h.pnl)} (${pct(h.pnlPct)})</td>
+        </tr>`).join('');
+    }
+
+    function renderMarkets(markets) {
+      els.markets.innerHTML = markets.map((m) => {
+        const up = m.change24h >= 0;
+        return `<tr>
+          <td><div class="coin"><span class="badge">${m.symbol}</span><div>${m.name}
+            <div class="muted" style="font-size:12px">${m.symbol}/USD</div></div></div></td>
+          <td class="mono">${money(m.price, { dp: m.price < 1 ? 4 : 2 })}</td>
+          <td class="${up ? 'up' : 'down'}">${pct(m.change24h)}</td>
+          <td class="muted">${compact(m.volume)}</td>
+          <td>${sparkline(m.spark, up)}</td>
+        </tr>`;
+      }).join('');
+
+      if (firstLoad) {
+        els.symbol.innerHTML = markets
+          .map((m) => `<option value="${m.symbol}">${m.symbol} — ${m.name}</option>`)
+          .join('');
+        firstLoad = false;
+      }
+    }
+
+    async function refresh() {
+      const [pf, mk] = await Promise.all([api.get('/api/portfolio'), api.get('/api/markets')]);
+      if (pf.portfolio) renderPortfolio(pf.portfolio);
+      if (mk.markets) renderMarkets(mk.markets);
+    }
+
+    async function boot() {
+      const me = await api.get('/api/auth/me');
+      if (!me.user) {
+        window.location.href = '/login';
+        return;
+      }
+      els.who.textContent = me.user.username;
+      await refresh();
+      setInterval(refresh, 4000);
+    }
+
+    document.getElementById('t-submit').addEventListener('click', async () => {
+      els.msg.className = 'inline-msg muted';
+      els.msg.textContent = 'Submitting…';
+      const { ok, data } = await api.post('/api/portfolio/trade', {
+        symbol: els.symbol.value,
+        side: els.side.value,
+        usd: Number(els.usd.value),
+      });
+      if (!ok) {
+        els.msg.className = 'inline-msg down';
+        els.msg.textContent = data.error || 'Order rejected.';
+        return;
+      }
+      els.msg.className = 'inline-msg up';
+      els.msg.textContent = `Simulated ${els.side.value} filled for ${els.symbol.value}.`;
+      renderPortfolio(data.portfolio);
+    });
+
+    document.getElementById('reset').addEventListener('click', async () => {
+      const { ok, data } = await api.post('/api/portfolio/reset', {});
+      if (ok) {
+        renderPortfolio(data.portfolio);
+        els.msg.className = 'inline-msg muted';
+        els.msg.textContent = 'Demo account reset to $10,000.';
+      }
+    });
+
+    document.getElementById('logout').addEventListener('click', async () => {
+      await api.post('/api/auth/logout', {});
+      window.location.href = '/';
+    });
+
+    boot();
+  </script>
+</body>
+</html>
